@@ -18,5 +18,5 @@ This project focuses on EEG signal reconstruction and interpolation using Neural
 - `data/` — local data folder, not tracked by Git
 
 ## Notes
-sabfiudsbo
+
 Large datasets, trained models, and experiment outputs are not stored in this repository.
