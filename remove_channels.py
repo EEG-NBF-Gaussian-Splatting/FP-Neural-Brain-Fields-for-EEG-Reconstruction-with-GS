@@ -7,11 +7,9 @@ def clean_fif_file_keep_electrode(fif_file_path, keep_electrode="61", synthetic_
 
     print(f"\nProcessing: {fif_file_path}")
     
-    raw = mne.io.read_raw_fif(fif_file_path, preload=True) #load all the record
-    print(f"\nRaws: {raw}")
-    all_channels = raw.ch_names #return list of all the channels names  
-    print(f"\nAll channels: {all_channels}")
-
+    raw = mne.io.read_raw_fif(fif_file_path, preload=True)
+    
+    all_channels = raw.ch_names
     
     keep_electrodes = []
     if "-" in str(keep_electrode):
@@ -37,31 +35,17 @@ def clean_fif_file_keep_electrode(fif_file_path, keep_electrode="61", synthetic_
 
 
 
-base_dir = "C:\\Users\\liron\\Desktop\\סמסטר 7\\Final Project\\FP-Neural-Brain-Fields-for-EEG-Reconstruction-with-GS"
-patient_num = 1
-patient_id = f"S{patient_num:02d}"
-print(patient_id)
-fif_path = os.path.join(base_dir, patient_id, "meg-sr120-hp0-raw.fif")
-if os.path.exists(fif_path):
-    try:
-        # Keep electrodes 62-66 inclusive
-        clean_fif_file_keep_electrode(fif_path, keep_electrode="62 - 66", synthetic_threshold=62)
-    except Exception as e:
-        print(f"Error processing {patient_id}: {str(e)}")
-else:
-    print(f"File not found: {fif_path}")
-
-
-# for patient_num in range(1, 49):
-#     patient_id = f"S{patient_num:02d}"
-#     fif_path = os.path.join(base_dir, patient_id, "meg-sr120-hp0-raw.fif")
-#     if os.path.exists(fif_path):
-#         try:
-#             # Keep electrodes 62-66 inclusive
-#             clean_fif_file_keep_electrode(fif_path, keep_electrode="62 - 66", synthetic_threshold=62)
-#         except Exception as e:
-#             print(f"Error processing {patient_id}: {str(e)}")
-#     else:
-#         print(f"File not found: {fif_path}")
+base_dir = r"C:\NBF_DATA\brennan2019_processed" 
+for patient_num in range(1, 49):
+    patient_id = f"S{patient_num:02d}"
+    fif_path = os.path.join(base_dir, patient_id, "meg-sr120-hp0-raw.fif")
+    if os.path.exists(fif_path):
+        try:
+            # Keep electrodes 62-66 inclusive
+            clean_fif_file_keep_electrode(fif_path, keep_electrode="62-66", synthetic_threshold=62)
+        except Exception as e:
+            print(f"Error processing {patient_id}: {str(e)}")
+    else:
+        print(f"File not found: {fif_path}")
         
 
